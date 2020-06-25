@@ -234,7 +234,7 @@ async def moni(event):
         return
 
 
-@register(outgoing=True, pattern=r"^.google(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^.g(?: |$)(.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
     textx = await q_event.get_reply_message()
@@ -1331,7 +1331,7 @@ CMD_HELP.update({
 \nUsage: Converts various currencies for you.\
 \n\n`.carbon` <text or reply>\
 \nUsage: Beautify your code using carbon.now.sh\nUse .crblang <text> to set language for your code.\
-\n\n`.google` <query>\
+\n\n`.g` <query>\
 \nUsage: Does a search on Google.\
 \n\n`.wiki` <query>\
 \nUsage: Does a search on Wikipedia.\
