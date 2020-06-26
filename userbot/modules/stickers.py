@@ -245,7 +245,7 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
 
         await args.edit(f"`Buildbotted for you Senpai😋 `\
-                        \nGently press [here](t.me/addstickers/{packname})UwU",
+                        \nGently press [here](t.me/addstickers/{packname}) UwU",
                         parse_mode='md')
 
 
