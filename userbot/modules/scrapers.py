@@ -237,39 +237,34 @@ async def moni(event):
 @register(outgoing=True, pattern=r"^.g(?: |$)(.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-    textx = await q_event.get_reply_message()
-    query = q_event.pattern_match.group(1)
-
-    if query:
-        pass
-    elif textx:
-        query = textx.text
-    else:
-        await q_event.edit("`Pass a query as an argument or reply "
-                           "to a message for Google search!`")
-        return
-
-    q_event.edit("`Searching...`")
-
-    search_args = (str(query), 1)
-    googsearch = GoogleSearch()
-    gresults = await googsearch.async_search(*search_args)
+    match = q_event.pattern_match.group(1)
+    page = findall(r"page=\d+", match)
+    try:
+        page = page[0]
+        page = page.replace("page=", "")
+        match = match.replace("page=" + page[0], "")
+    except IndexError:
+        page = 1
+    search_args = (str(match), int(page))
+    gsearch = GoogleSearch()
+    gresults = await gsearch.async_search(*search_args, cache=False)
     msg = ""
-    for i in range(1, 6):
+    for i in range(7):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
             desc = gresults["descriptions"][i]
-            msg += f"{i}. [{title}]({link})\n`{desc}`\n\n"
+            msg += f"[{title}]({link})\n`{desc}`\n\n"
         except IndexError:
             break
-    await q_event.edit("**Search Query:**\n`" + query + "`\n\n**Results:**\n" +
+    await q_event.edit("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
                        msg,
                        link_preview=False)
+
     if BOTLOG:
         await q_event.client.send_message(
             BOTLOG_CHATID,
-            "Google Search query `" + query + "` was executed successfully",
+            "Google Search query `" + match + "` was executed successfully",
         )
 
 
@@ -421,11 +416,11 @@ async def _(event):
 
 
 
-@register(pattern=".lang (trt|tts) (.*)", outgoing=True)
+@register(pattern=".lang (tr|tts) (.*)", outgoing=True)
 async def lang(value):
     """ For .lang command, change the default langauge of userbot scrapers. """
     util = value.pattern_match.group(1).lower()
-    if util == "trt":
+    if util == "tr":
         scraper = "Translator"
         global TRT_LANG
         arg = value.pattern_match.group(2).lower()
@@ -1422,8 +1417,8 @@ CMD_HELP.update({
 \nUsage: Usage: Does a search on Urban Dictionary.\
 \n\n`.tts` <text> [or reply]\
 \nUsage:Translates text to speech for the language which is set.\nUse .lang tts <language code> to set language for tts. (Default is English.)\
-\n\n`.trt` <text> [or reply]\
-\nUsage: Translates text to the language which is set.\nUse .lang trt <language code> to set language for trt. (Default is English)\
+\n\n`.tr` <text> [or reply]\
+\nUsage: Translates text to the language which is set.\nUse .lang tr <language code> to set language for tr. (Default is English)\
 \n\n`.yt` <text>\
 \nUsage: Does a YouTube search.\
 \n\n`.ripaudio` <url> or ripvideo <url>\
@@ -1441,6 +1436,8 @@ CMD_HELP.update({
 \n\n`.paste` <text/reply>\
 \nUsage: Create a paste or a shortened url using dogbin\
 \nUse `.getpaste` to get the content of a paste or shortened url from dogbin\
+\n\n`.bitly` <url> or reply to message contains url\
+\nUsage: Shorten link using bit.ly API\
 \n\n`.direct` <url>\
 \nUsage: Reply to a link or paste a URL to generate a direct download link\
 \n\nSupported Urls: `Google Drive` - `Cloud Mail` - `Yandex.Disk` - `AFH` - `ZippyShare` - `MediaFire` - `SourceForge` - `OSDN` - `GitHub`\
