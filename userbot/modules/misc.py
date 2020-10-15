@@ -13,16 +13,13 @@ import sys
 import os
 import io
 import sys
-import json
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot, GIT_REPO_NAME, ALIVE_NAME
 from userbot.events import register
 from userbot.utils import time_formatter
 import urllib
-from urllib.request import urlopen
 import requests
 from bs4 import BeautifulSoup
 import re
-from telethon.tl.types import MessageMediaPhoto
 from PIL import Image
 
 
@@ -320,5 +317,9 @@ CMD_HELP.update({
 \n\n`.raw`\
 \nUsage: Get detailed JSON-like formatted data about replied message.\
 \n\n`.reverse`\
-\nUsage: Reply to a pic/sticker to revers-search it on Google Images !!"    
+\nUsage: Reply to a pic/sticker to revers-search it on Google Images.\
+\n\n: `.poll`\
+\nUsage:If you doesnt give any input it sends a default poll. if you like customize it then use this syntax:\
+\n `.poll question ; option 1; option2 ;`\
+\n ';' this seperates the each option and question."
 })

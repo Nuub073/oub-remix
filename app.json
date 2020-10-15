@@ -22,16 +22,6 @@
       "description": "Get this value from my.telegram.org.",
       "required": true
     },
-    "API_TOKEN": {
-      "description": "Get this value from http://antiddos.systems! Please do not steal",
-      "value": "",
-      "required": false
-    },
-    "API_URL": {
-      "description": "The value is http://antiddos.systems!",
-      "value": "http://antiddos.systems",
-      "required": false
-    },
     "STRING_SESSION": {
       "description": "Get this value by running [python3 string_session.py] in Termux or local system.",
       "required": true
@@ -42,7 +32,7 @@
     },
     "MONGO_URI": {
             "description": "Your MongoDB Atlas URL, Get your guide from https://telegra.ph/Mongo-DB-12-24.",
-            "required": false 
+            "required": false
     },
     "NC_LOG_P_M_S": {
       "description": "set to True if you want to log PMs to your PM_LOGGR_BOT_API_ID",
@@ -97,7 +87,7 @@
     },
     "GOOGLE_CHROME_BIN": {
       "description": "Google Chrome (or) Chromium binary location for selenium based modules.",
-      "value": "/usr/bin/chromium-browser",
+      "value": "/usr/bin/google-chrome",
       "required": false
     },
     "OPEN_WEATHER_MAP_APPID": {
@@ -119,10 +109,6 @@
     "PM_AUTO_BAN": {
       "description": "PM Auto-Ban Feature Switch. Also known as the 'bleep blop, this is a bot...' module.",
       "value": "False"
-    },
-    "YOUTUBE_API_KEY": {
-      "description": "YouTube Data API Key for .yt command. Get from https://console.cloud.google.com",
-      "required": false
     },
     "OCR_SPACE_API_KEY": {
       "description": "OCR API Key for .ocr command. Get from https://ocr.space/ocrapi",
@@ -181,12 +167,16 @@
       "description": "Name to show in .alive message",
       "required": false
     },
-    "G_BAN_LOGGER_GROUP": {
-      "description": "Add all sudo bots in your group and type id of that group.",
-      "required": false
-    },
     "G_DRIVE_DATA": {
       "description": "Enter the Google Drive authentication data, as a JSON structure.",
+      "required": false
+    },
+    "G_PHOTOS_CLIENT_ID": {
+      "description": "get the client id from https://j.mp/39lWQQm",
+      "required": false
+    },
+    "G_PHOTOS_CLIENT_SECRET": {
+      "description": "get the client secret from https://j.mp/39lWQQm",
       "required": false
     },
     "BITLY_TOKEN": {
@@ -199,10 +189,6 @@
       "value": "-1001376711460 -1001232530981 -1001460242671 -1001255383765 -1001476589953 -1001298140471 -1001089118458 -1001224245343 -1001287976326 -1001377256951 -1001329042156 -1001202504432 -1001148103952 -1001063463715 -1001455478060 -1001251236870 -1001462536556 -1001120290128 -1001485556805 -1001220993104 -1001109500936 -1001305313195 -1001329980174",
       "required": false
     },
-    "LYDIA_API_KEY": {
-      "description": "This Module Needs CoffeeHouse API to work. so Join https://telegram.dog/IntellivoidDev and send #activateapi and follow instructions.",
-      "required": false
-    },
     "WEATHER_DEFCITY": {
       "description": "Set the default city for the userbot's weather module.",
       "required": false
@@ -211,8 +197,20 @@
       "description": "Set this to True in case you want the error logs to be stored in the userbot log group, instead of spitting out the file in the current chat, requires a valid BOTLOG_CHATID to be set.",
       "value": "True"
     },
+    "ALIVE_LOGO": {
+      "description": "Show Image/Logo in .alive message. Fill value of image your link image, use telegra.ph / i.ibb.co to get your own image",
+      "required": false
+    },
     "DEEZER_ARL_TOKEN": {
       "description": "Input your DEEZER ARL TOKEN https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken",
+      "required": false
+    },
+    "BOT_TOKEN": {
+      "description": "Set this to enable inline bot helper. get the token from @BotFather",
+      "required": false
+    },
+    "BOT_USERNAME": {
+      "description": "Username of the bot you created with @BotFather",
       "required": false
     }
   },

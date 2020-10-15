@@ -2,14 +2,15 @@
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
-#
-""" Userbot module for managing events.
- One of the main components of the userbot. """
+##inline credit @keselekpermen69
+
+"""Userbot module for managing events. One of the main components of the userbot."""
 
 import sys
 from asyncio import create_subprocess_shell as asyncsubshell
 from asyncio import subprocess as asyncsub
 from os import remove
+import asyncio
 from time import gmtime, strftime
 from traceback import format_exc
 
@@ -28,6 +29,7 @@ def register(**args):
     trigger_on_fwd = args.get('trigger_on_fwd', False)
     disable_errors = args.get('disable_errors', False)
     insecure = args.get('insecure', False)
+    trigger_on_inline = args.get('trigger_on_inline', False)
 
     if pattern is not None and not pattern.startswith('(?i)'):
         args['pattern'] = '(?i)' + pattern
@@ -49,6 +51,9 @@ def register(**args):
 
     if "insecure" in args:
         del args['insecure']
+
+    if "trigger_on_inline" in args:
+        del args['trigger_on_inline']
 
     if pattern:
         if not ignore_unsafe:
@@ -75,6 +80,9 @@ def register(**args):
             if check.via_bot_id and not insecure and check.out:
                 return
 
+            if check.via_bot_id and not trigger_on_inline:
+                return
+
             try:
                 await func(check)
 
@@ -84,7 +92,8 @@ def register(**args):
 
             except events.StopPropagation:
                 raise events.StopPropagation
-            # This is a gay exception and must be passed out. So that it doesnt spam chats
+            # This is a gay exception and must be passed out. So that it doesnt
+            # spam chats
             except KeyboardInterrupt:
                 pass
             except BaseException:
@@ -96,10 +105,10 @@ def register(**args):
                 if not disable_errors:
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
-                    text = "**USERBOT ERROR REPORT**\n"
-                    link = "[OUB Support](https://t.me/PPE_Support)"
+                    text = "**REMIX ERROR REPORT**\n"
+                    link = "[OUB REMIX](https://t.me/PPE_SUPPORT)"
                     text += "If you want to, you can report it"
-                    text += f". Head and forward this message to {link}.\n"
+                    text += f"- just forward this message to {link}.\n"
                     text += "Nothing is logged except the fact of error and date\n"
 
                     ftext = "========== DISCLAIMER =========="
@@ -134,20 +143,22 @@ def register(**args):
 
                     ftext += result
 
-                    file = open("error.log", "w+")
-                    file.write(ftext)
-                    file.close()
+                    with open("error.txt", "w+") as file:
+                        file.write(ftext)
 
                     if LOGSPAMMER:
-                        await check.client.respond(
-                            "`Sorry, my userbot has crashed.\
-                        \nThe error logs are stored in the userbot's log chat.`"
+                        sorry_msg = await check.respond(
+                            "`Sorry,userbot has crashed.\
+                        \nCheck botlog group for error logs.`"
                         )
+                        await asyncio.sleep(3.5)
+                        await sorry_msg.delete()
+
 
                     await check.client.send_file(send_to,
-                                                 "error.log",
+                                                 "error.txt",
                                                  caption=text)
-                    remove("error.log")
+                    remove("error.txt")
             else:
                 pass
 

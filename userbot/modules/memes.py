@@ -8,12 +8,13 @@
 
 from asyncio import sleep
 import asyncio
+import random
 from random import choice, getrandbits, randint
 from re import sub
 from random import randint
 from os import execl
 import time
-from telethon import events
+from telethon import events, functions
 from userbot import bot
 
 
@@ -254,6 +255,33 @@ INSULT_STRINGS = [
     "Try to spend one day in a coffin and it will be yours forever.",
     "Hit Uranium with a slow moving neutron in your presence. It will be a worthwhile experience.",
     "You can be the first person to step on sun. Have a try.",
+]
+
+CONGOSTR = [
+    "`Congratulations and BRAVO!`",
+    "`You did it! So proud of you!`",
+    "`This calls for celebrating! Congratulations!`",
+    "`I knew it was only a matter of time. Well done!`",
+    "`Congratulations on your well-deserved success.`",
+    "`Heartfelt congratulations to you.`",
+    "`Warmest congratulations on your achievement.`",
+    "`Congratulations and best wishes for your next adventure!”`",
+    "`So pleased to see you accomplishing great things.`",
+    "`Feeling so much joy for you today. What an impressive achievement!`",
+    "`Congrats! This is not a new surprise for us to see your success. Success is all your right from day one when you started achieving.`",
+    "`Congratulations for your fabulous victory. You deserve it every bit.`",
+    "`Congratulations on your success.`",
+    "`Congratulations for making your dreams come true.`",
+    "`Congratulations for achieving so much on your own steam.`",
+    "`A well earned promotion to a well deserved person Congratulations.`",
+    "`Congrats Am in awe of you for the rest of my life.`",
+    "`May this moment last forever Congratulations.`",
+    "`Congratulations for now and bright future.`",
+    "`Your success deserves celebration and a big congratulation.`",
+    "`You deserve the biggest congratulation for all your hard works!`",
+    "`Congratulations Wishing you all the excitement and very happiness.`",
+    "`You’re doing amazing Congrats!`",
+    "`Congrats This calls for a huge celebration!`",
 ]
 
 GDNOON = [
@@ -1046,6 +1074,11 @@ async def hoi(hello):
 async def night(night):
     """ Greet everyone! """
     await night.edit(choice(GDNIGHT))
+
+@register(outgoing=True, pattern="^.congo$")
+async def congo(congo):
+    """ Greet everyone! """
+    await congo.edit(choice(CONGOSTR))    
                       
                       
 @register(outgoing=True, pattern="^.gm$")
@@ -1128,7 +1161,7 @@ async def metoo(hahayes):
     await hahayes.edit(choice(METOOSTR))
 
 
-@register(outgoing=True, pattern="^.Oof$")
+@register(outgoing=True, pattern="^.oof$")
 async def Oof(e):
     t = "Oof"
     for j in range(16):
@@ -1142,18 +1175,6 @@ async def Oem(e):
     for j in range(16):
         t = t[:-1] + "em"
         await e.edit(t)
-
-
-
-
-@register(outgoing=True, pattern="^.Oem$")
-async def Oem(e):
-    t = "Oem"
-    for j in range(16):
-        t = t[:-1] + "em"
-        await e.edit(t)
-
-
 
 @register(outgoing=True, pattern="^.10iq$")
 async def iqless(e):
@@ -1513,12 +1534,31 @@ async def love(event):
     except BaseException:
         return
 
+@register(outgoing=True, pattern="^.shout(?: |$)(.*)")
+async def shout(args):
+    if args.fwd_from:
+        return
+    else:
+        msg = "```"
+        messagestr = args.text
+        messagestr = messagestr[7:]
+        text = " ".join(messagestr)
+        result = []
+        result.append(' '.join([s for s in text]))
+        for pos, symbol in enumerate(text[1:]):
+            result.append(symbol + ' ' + '  ' * pos + symbol)
+        result = list("\n".join(result))
+        result[0] = text[0]
+        result = "".join(result)
+        msg = "\n" + result
+        await args.edit("`"+msg+"`")        
+
 @register(outgoing=True, pattern="^.bigoof$")
 async def _(event):
     if event.fwd_from:
         return
     animation_interval = 0.1
-    animation_ttl = range(0,36)
+    animation_ttl = range(0,7)
     #input_str = event.pattern_match.group(1)
    # if input_str == "nope":
     await event.edit("┏━━━┓╋╋╋╋┏━━━┓ \n┃┏━┓┃╋╋╋╋┃┏━┓┃ \n┃┃╋┃┣┓┏┓┏┫┃╋┃┃ \n┃┃╋┃┃┗┛┗┛┃┃╋┃┃ \n┃┗━┛┣┓┏┓┏┫┗━┛┃ \n┗━━━┛┗┛┗┛┗━━━┛")
@@ -1536,7 +1576,7 @@ async def _(event):
     for i in animation_ttl:
         	
         await asyncio.sleep(animation_interval)
-        await event.edit(animation_chars[i % 40])        
+        await event.edit(animation_chars[i % 7])        
 
 CMD_HELP.update({
     "memes":
@@ -1560,9 +1600,9 @@ CMD_HELP.update({
 \nUsage: You retard !!\
 \n\n`.zal`\
 \nUsage: Invoke the feeling of chaos.\
-\n\nOem\
+\n\n`.oem`\
 \nUsage: Oeeeem\
-\n\n.Oof or .bigoof\
+\n\n.oof or .bigoof\
 \nUsage: Ooooof\
 \n\n`.fp`\
 \nUsage: Facepalm :P\
@@ -1598,13 +1638,13 @@ CMD_HELP.update({
 \nUsage: Do it and find the real fun.\
 \n\n Memefied contains<`.love`, `.nou`, `.hey`, `.gey`, `.gay`, `.bot`,\n`.sayhi`, `.taco`, `.fag`, `.nih`, `.stfu`, `.lool`, `.lol`, `.fail`, `.lols`>\
 \n\nUsage: Enjoiii\
-\n\n`.clap`\
+\n\n`.clap` or `.congo`\
 \nUsage: Praise people!\
 \n\n`.f` <emoji/character>\
 \nUsage: Pay Respects.\
 \n\n`.bt`\
 \nUsage: Believe me, you will find this useful.\
-\n\n`.type`\
+\n\n`.type` or `.shout` <text>\
 \nUsage: Just a small command to make your keyboard become a typewriter!\
 \n\n`.gi` <query>\
 \nUsage: Let me Google that for you real quick !!\
