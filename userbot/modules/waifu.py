@@ -150,14 +150,9 @@ CMD_HELP.update({
     "`.waifu` text\
 \nUsage: for custom stickers.\
 \n\n`.hz` or `.hz [flip, x2, rotate (degree), background (number), black]`\
-<<<<<<< HEAD
-\nUsage: Reply to a image / sticker to suit up!."
-})    
-=======
 \nUsage: Reply to a image / sticker to suit up!.\
 \n\n`.rst`\
 \nUsage: To stickerize your text with random sticker templates.\
 \n\n`.hsb` <text or reply>\
 \nUsage: generates animated rolling sticker out of text."
 })
->>>>>>> fe46cd4c06e1a50e26b32f745ade1584e5212e58
