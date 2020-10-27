@@ -1394,7 +1394,6 @@ CMD_HELP.update({
 \n\n`.paste` <text/reply>\
 \nUsage: Create a paste or a shortened url using dogbin\
 \nUse `.getpaste` to get the content of a paste or shortened url from dogbin\
-
 \n\n`.bitly` <url> or reply to message contains url\
 \nUsage: Shorten link using bit.ly API\
 \n\n`.direct` <url>\
